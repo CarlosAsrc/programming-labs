@@ -1,9 +1,14 @@
-const wheatherService = require('./wheather-service')
-const geolocationService = require('./geolocation-service')
+const wheatherService = require('./client/wheather-service')
+const geolocationService = require('./client/geolocation-service')
 
 
-geolocationService.getGeolocation((geolocation) => {
-    wheatherService.getWeather(geolocation, (weather) => {
-        console.log(weather)
-    })
+geolocationService.getGeolocation('Porto Alegre', (error, geolocation) => {
+
+    if (error) {
+        console.log('Error', error);
+    } else {
+        wheatherService.getWeather(geolocation.latitude, geolocation.longitude, (data) => {
+            console.log(data)
+        })
+    }
 })
