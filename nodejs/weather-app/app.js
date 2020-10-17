@@ -1,14 +1,22 @@
-const wheatherService = require('./client/wheather-service')
-const geolocationService = require('./client/geolocation-service')
+const getGeolocation = require('./client/geolocation-service')
+const getWeather = require('./client/wheather-service')
 
+const address = process.argv[2]
 
-geolocationService.getGeolocation('Porto Alegre', (error, geolocation) => {
-
-    if (error) {
-        console.log('Error', error);
-    } else {
-        wheatherService.getWeather(geolocation.latitude, geolocation.longitude, (data) => {
-            console.log(data)
+if(!address) {
+    console.log('Please provide address')
+} else {
+    getGeolocation(address, (error, geolocation) => {
+        if (error) {
+            return console.log('Error', error);
+        }
+    
+        getWeather(geolocation.latitude, geolocation.longitude, (forecast) => {
+            if(error) {
+                return console.log(error)
+            }
+            console.log(geolocation.location)
+            console.log(forecast)
         })
-    }
-})
+    })
+}

@@ -11,11 +11,9 @@ const getWeather = (latitude, longitude, callback) => {
         } else if (response.body.error) {
             callback('Unable to find location. Please try another search.', undefined)
         } else {
-            callback(undefined, response)
+            callback(response.body.current)
         }
-        
-        callback(response.body.current)
     })
 }
 
-module.exports = {getWeather: getWeather}
+module.exports = getWeather

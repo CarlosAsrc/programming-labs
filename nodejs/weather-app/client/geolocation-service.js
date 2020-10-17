@@ -21,4 +21,4 @@ const getGeolocation = (address, callback) => {
     })
 }
 
-module.exports = {getGeolocation: getGeolocation}
+module.exports = getGeolocation
